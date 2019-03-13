@@ -36,8 +36,6 @@ Object.assign(app, {
   }
 })
 
-app.getFileIcon = deprecate.promisify(app.getFileIcon)
-
 app.isPackaged = (() => {
   const execFile = path.basename(process.execPath).toLowerCase()
   if (process.platform === 'win32') {
@@ -62,6 +60,18 @@ for (const name of events) {
     webContents.emit(name, event, ...args)
   })
 }
+
+// Function Deprecations
+app.getFileIcon = deprecate.promisify(app.getFileIcon)
+
+// Property Deprecations
+const [
+  deprecatedGetter,
+  deprecatedSetter
+] = deprecate.fnToProperty('accessibilitySupportEnabled', app.isAccessibilitySupportEnabled, app.setAccessibilitySupportEnabled)
+
+app.isAccessibilitySupportEnabled = deprecatedGetter
+app.setAccessibilitySupportEnabled = deprecatedSetter
 
 // Wrappers for native classes.
 const { DownloadItem } = process.electronBinding('download_item')
