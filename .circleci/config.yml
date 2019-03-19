@@ -445,6 +445,7 @@ step-maybe-cross-arch-snapshot: &step-maybe-cross-arch-snapshot
     command: |
       if [ "$TRIGGER_ARM_TEST" == "true" ] && [ -z "$CIRCLE_PR_NUMBER" ]; then
         cd src
+        ls -la out/Default
         python electron/script/verify-mksnapshot.py --source-root "$PWD" --build-dir out/Default --create-snapshot-only
         mkdir cross-arch-snapshots
         cp out/Default-mksnapshot-test/*.bin cross-arch-snapshots
