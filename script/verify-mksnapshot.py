@@ -27,8 +27,6 @@ def main():
         mkargs = [ get_binary_path('mksnapshot', app_path), \
                     SNAPSHOT_SOURCE, '--startup_blob', 'snapshot_blob.bin', \
                     '--turbo_instruction_scheduling' ]
-        print 'calling mksnapshot with args:'
-        print mkargs
         subprocess.check_call(mkargs)
         print 'ok mksnapshot successfully created snapshot_blob.bin.'
         context_snapshot = 'v8_context_snapshot.bin'
