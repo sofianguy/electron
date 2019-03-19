@@ -439,16 +439,16 @@ step-maybe-zip-symbols: &step-maybe-zip-symbols
       export BUILD_PATH="$PWD/out/Default"
       electron/script/zip-symbols.py -b $BUILD_PATH
 
-step-maybe-cross-arch-snapshot: &step-maybe-cross-arch-mksnapshot
+step-maybe-cross-arch-snapshot: &step-maybe-cross-arch-snapshot
   run:
     name: Generate cross arch snapshot (arm/arm64)
     command: |
-    if [ "$TRIGGER_ARM_TEST" == "true" ] && [ -z "$CIRCLE_PR_NUMBER" ]; then
-      cd src
-      python electron/script/verify-mksnapshot.py --source-root "$PWD" --build-dir out/Default --create-snapshot-only
-      mkdir cross-arch-snapshots
-      cp out/Default-mksnapshot-test/*.bin cross-arch-snapshots
-    fi
+      if [ "$TRIGGER_ARM_TEST" == "true" ] && [ -z "$CIRCLE_PR_NUMBER" ]; then
+        cd src
+        python electron/script/verify-mksnapshot.py --source-root "$PWD" --build-dir out/Default --create-snapshot-only
+        mkdir cross-arch-snapshots
+        cp out/Default-mksnapshot-test/*.bin cross-arch-snapshots
+      fi
 
 step-maybe-cross-arch-snapshot-store: &step-maybe-cross-arch-snapshot-store
   store_artifacts:
