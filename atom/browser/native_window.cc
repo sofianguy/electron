@@ -357,6 +357,12 @@ bool NativeWindow::IsMenuBarAutoHide() {
   return false;
 }
 
+void NativeWindow::SetExcludedFromShownWindowsMenu(bool excluded) {}
+
+bool NativeWindow::IsExcludedFromShownWindowsMenu() {
+  return false;
+}
+
 void NativeWindow::SetMenuBarVisibility(bool visible) {}
 
 bool NativeWindow::IsMenuBarVisible() {
